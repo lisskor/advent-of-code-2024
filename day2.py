@@ -1,4 +1,4 @@
-import argparse
+from argument_parser import make_parser
 
 
 def read_file(file_name):
@@ -36,17 +36,7 @@ def safe_reports_part2(file_name):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        '--input',
-        type=str,
-        help='Input file')
-    parser.add_argument(
-        '--part',
-        type=int,
-        help='Task part (1 or 2)')
-
-    args = parser.parse_args()
+    args = make_parser().parse_args()
     if args.part == 1:
         print(safe_reports_part1(args.input))
     elif args.part == 2:

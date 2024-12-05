@@ -1,5 +1,6 @@
-import argparse
 from collections import Counter
+
+from argument_parser import make_parser
 
 
 def read_file(file_name):
@@ -26,17 +27,7 @@ def similarity_score(left, right):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        '--input',
-        type=str,
-        help='Input file')
-    parser.add_argument(
-        '--part',
-        type=int,
-        help='Task part (1 or 2)')
-
-    args = parser.parse_args()
+    args = make_parser().parse_args()
     left_list, right_list = read_file(args.input)
     if args.part == 1:
         print(total_distance(left_list, right_list))
