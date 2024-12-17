@@ -3,14 +3,14 @@ from itertools import combinations
 from argument_parser import make_parser
 
 
-def read_file(file_name):
+def read_file(file_name: str) -> list[list[str]]:
     with open(file_name, 'r', encoding='utf8') as fh:
         lines = [[char for char in line.strip()] for line in fh.readlines()]
     return lines
 
 
 class AntennaMap:
-    def __init__(self, input_list, part=1):
+    def __init__(self, input_list: list[list[str]], part: int=1):
         self.antennas = self.save_antennas(input_list)
         self.height = len(input_list)
         self.width = len(input_list[0])
@@ -18,7 +18,7 @@ class AntennaMap:
         self.antinodes = self.add_antinodes()
 
     @staticmethod
-    def save_antennas(input_list):
+    def save_antennas(input_list: list[list[str]]) -> dict[str, list[tuple[int, int]]]:
         result = dict()
         for row, line in enumerate(input_list):
             for col, char in enumerate(line):
@@ -27,7 +27,7 @@ class AntennaMap:
                     result[char].append((row, col))
         return result
 
-    def add_antinodes(self):
+    def add_antinodes(self) -> dict[str, list[tuple[int, int]]]:
         antinodes = dict()
         steps = 2 if self.part == 1 else max(self.width, self.height)
 
@@ -50,7 +50,7 @@ class AntennaMap:
         return antinodes
 
 
-    def unique_antinode_locations(self):
+    def unique_antinode_locations(self) -> int:
         all_antinodes = []
         for antinode_type in self.antinodes:
             all_antinodes.extend(self.antinodes[antinode_type])
